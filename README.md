@@ -152,6 +152,7 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
+```
 
 ---
 
@@ -174,10 +175,10 @@ show-sql=true
 → Hiển thị SQL trên console để debug
 
 🗂 Entity Mapping
-Entity	Mô tả
-User	Người dùng hệ thống
-Project	Dự án
-Task	Công việc
+Entity Mô tả
+User Người dùng hệ thống
+Project Dự án
+Task Công việc
 
 Quan hệ
 
@@ -218,19 +219,19 @@ Không tìm thấy tài nguyên
 Trùng dữ liệu
 
 📅 Kế hoạch phát triển
- Xây dựng cấu trúc project Spring Boot
+Xây dựng cấu trúc project Spring Boot
 
- Hoàn thành User Module
+Hoàn thành User Module
 
- Hoàn thành Project Module
+Hoàn thành Project Module
 
- Hoàn thành Task Module
+Hoàn thành Task Module
 
- Thêm Authentication & Authorization
+Thêm Authentication & Authorization
 
- Viết Unit Test
+Viết Unit Test
 
- Hoàn thiện tài liệu API
+Hoàn thiện tài liệu API
 
 👨‍💻 Thông tin sinh viên
 Họ tên: Hoàng Nam Khánh
@@ -242,4 +243,7 @@ Công nghệ: Java – Spring Boot
 GitHub: https://github.com/hkhanh0402
 
 ---
+
+```
+
 ```
