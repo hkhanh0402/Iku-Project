@@ -7,6 +7,47 @@ Dự án tập trung vào việc quản lý **User – Project – Task**, áp d
 
 ---
 
+## 📋 Mô tả nghiệp vụ (Business Description)
+
+Hệ thống **Iku Project** là hệ thống quản lý công việc nội bộ,
+được xây dựng nhằm hỗ trợ việc quản lý **người dùng (User)**,
+**dự án (Project)** và **công việc (Task)**.
+
+### 👤 User
+
+User là người sử dụng hệ thống, có thể tham gia nhiều Project
+và được gán nhiều Task khác nhau.
+
+### 📌 Project
+
+Project đại diện cho một dự án cụ thể.
+Mỗi Project bao gồm nhiều Task và có trạng thái riêng
+(PLANNING, IN_PROGRESS, DONE).
+
+### 📝 Task
+
+Task là đơn vị công việc nhỏ nhất trong hệ thống.
+
+Mỗi Task:
+
+- Thuộc về **một Project**
+- Được gán cho **một User**
+- Có trạng thái xử lý (TODO, IN_PROGRESS, DONE)
+
+### 🔗 Quan hệ nghiệp vụ
+
+- Một User có thể được gán nhiều Task
+- Một Project có thể chứa nhiều Task
+- Mỗi Task chỉ thuộc về một User và một Project tại một thời điểm
+
+Hệ thống hỗ trợ các chức năng:
+- Quản lý User
+- Quản lý Project
+- Quản lý Task
+- Theo dõi trạng thái công việc
+
+---
+
 ## 🎯 Mục tiêu
 
 - Làm quen với cấu trúc project Spring Boot chuẩn
