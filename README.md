@@ -153,6 +153,7 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
 
+---
 
 ⚠️ Lưu ý
 
@@ -161,6 +162,8 @@ username và password chỉ mang tính minh họa
 Cần cài đặt SQL Server và đảm bảo service đang chạy
 
 Database project_iku phải được tạo trước
+
+---
 
 🧠 Hibernate Configuration
 
