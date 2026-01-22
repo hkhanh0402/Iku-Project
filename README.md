@@ -156,13 +156,11 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
 
 ---
 
-⚠️ Lưu ý
+### ⚠️ Lưu ý
 
-username và password chỉ mang tính minh họa
-
-Cần cài đặt SQL Server và đảm bảo service đang chạy
-
-Database project_iku phải được tạo trước
+- username và password chỉ mang tính minh họa
+- Cần cài đặt SQL Server và đảm bảo service đang chạy
+- Database project_iku phải được tạo trước
 
 ---
 
@@ -175,10 +173,12 @@ show-sql=true
 → Hiển thị SQL trên console để debug
 
 🗂 Entity Mapping
-Entity Mô tả
-User Người dùng hệ thống
-Project Dự án
-Task Công việc
+
+| Entity  | Mô tả               |
+| ------- | ------------------- |
+| User    | Người dùng hệ thống |
+| Project | Dự án               |
+| Task    | Công việc           |
 
 Quan hệ
 
@@ -190,22 +190,25 @@ Mỗi Task thuộc về một User và một Project
 
 ---
 
-▶️ Cách chạy project
+## ▶️ Cách chạy project
 
-1️⃣ Clone project
+### 1️⃣ Clone project
 
 Sao chép mã: git clone https://github.com/hkhanh0402/Iku-Project.git
 
-2️⃣ Tạo database
+### 2️⃣ Tạo database
 
 Sao chép mã: CREATE DATABASE project_iku;
 
-3️⃣ Chạy ứng dụng
+### 3️⃣ Chạy ứng dụng
 
 mvn spring-boot:run
 Hoặc chạy trực tiếp bằng IDE (IntelliJ / Eclipse).
 
-🧪 Test API
+---
+
+## 🧪 Test API
+
 Sử dụng Postman để test API
 
 Test các trường hợp:
@@ -218,7 +221,8 @@ Không tìm thấy tài nguyên
 
 Trùng dữ liệu
 
-📅 Kế hoạch phát triển
+## 📅 Kế hoạch phát triển
+
 Xây dựng cấu trúc project Spring Boot
 
 Hoàn thành User Module
@@ -233,7 +237,8 @@ Viết Unit Test
 
 Hoàn thiện tài liệu API
 
-👨‍💻 Thông tin sinh viên
+## 👨‍💻 Thông tin sinh viên
+
 Họ tên: Hoàng Nam Khánh
 
 Vị trí: Thực tập sinh Backend Java
