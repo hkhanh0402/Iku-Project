@@ -156,25 +156,21 @@ spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
 ```
 
----
-
 ### ⚠️ Lưu ý
 
 - username và password chỉ mang tính minh họa
 - Cần cài đặt SQL Server và đảm bảo service đang chạy
 - Database project_iku phải được tạo trước
 
----
+### 🧠 Hibernate Configuration
 
-🧠 Hibernate Configuration
-
-ddl-auto=update
+- ddl-auto=update
 → Tự động tạo & cập nhật bảng theo Entity, không làm mất dữ liệu
 
-show-sql=true
+- show-sql=true
 → Hiển thị SQL trên console để debug
 
-🗂 Entity Mapping
+### 🗂 Entity Mapping
 
 | Entity  | Mô tả               |
 | ------- | ------------------- |
@@ -182,7 +178,7 @@ show-sql=true
 | Project | Dự án               |
 | Task    | Công việc           |
 
-Quan hệ
+### Quan hệ
 
 Một User có nhiều Task
 
