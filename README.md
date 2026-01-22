@@ -138,9 +138,10 @@ src/main/java/com/example/projectiku
 
 ---
 
-### ⚙️ Application Configuration
+## ⚙️ Application Configuration
 
-Cấu hình trong file: src/main/resources/application.properties
+Cấu hình trong file:  
+`src/main/resources/application.properties`
 
 ```properties
 spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=project_iku;trustServerCertificate=true
@@ -150,10 +151,11 @@ spring.datasource.password=123
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
-
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
 
+
 ⚠️ Lưu ý
+
 username và password chỉ mang tính minh họa
 
 Cần cài đặt SQL Server và đảm bảo service đang chạy
@@ -161,11 +163,12 @@ Cần cài đặt SQL Server và đảm bảo service đang chạy
 Database project_iku phải được tạo trước
 
 🧠 Hibernate Configuration
+
 ddl-auto=update
-→ Tự động tạo và cập nhật bảng theo Entity, không làm mất dữ liệu cũ
+→ Tự động tạo & cập nhật bảng theo Entity, không làm mất dữ liệu
 
 show-sql=true
-→ Hiển thị SQL trên console để hỗ trợ debug
+→ Hiển thị SQL trên console để debug
 
 🗂 Entity Mapping
 Entity	Mô tả
@@ -173,13 +176,15 @@ User	Người dùng hệ thống
 Project	Dự án
 Task	Công việc
 
-Quan hệ:
+Quan hệ
 
 Một User có nhiều Task
 
 Một Project có nhiều Task
 
 Mỗi Task thuộc về một User và một Project
+
+---
 
 ▶️ Cách chạy project
 
