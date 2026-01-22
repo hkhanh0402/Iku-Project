@@ -49,18 +49,20 @@ Dự án tập trung vào việc quản lý **User – Project – Task**, áp d
 
 ## 📂 Cấu trúc project
 
+```
 src/main/java/com/example/projectiku
 │
-├── controller # Xử lý request/response API
-├── service # Interface service
-│ └── impl # Business logic
-├── repository # JPA Repository
-├── dto # Request / Response DTO
-├── entity # Entity mapping database
-├── enums # Enum trạng thái
-├── exception # Custom Exception & Global Handler
-├── config # Cấu hình (ModelMapper, etc.)
+├── controller        # Xử lý request/response API
+├── service           # Interface service
+│   └── impl          # Business logic
+├── repository        # JPA Repository
+├── dto               # Request / Response DTO
+├── entity            # Entity mapping database
+├── enums             # Enum trạng thái
+├── exception         # Custom Exception & Global Handler
+├── config            # Cấu hình (ModelMapper, etc.)
 └── ProjectIkuApplication.java
+```
 
 ---
 
