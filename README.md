@@ -219,6 +219,8 @@ Không tìm thấy tài nguyên
 
 Trùng dữ liệu
 
+---
+
 ## 📅 Kế hoạch phát triển
 
 Xây dựng cấu trúc project Spring Boot
@@ -234,6 +236,8 @@ Thêm Authentication & Authorization
 Viết Unit Test
 
 Hoàn thiện tài liệu API
+
+---
 
 ## 👨‍💻 Thông tin sinh viên
 
