@@ -221,11 +221,11 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
 
 ### Quan hệ
 
-Một User có nhiều Task
+- Một User có nhiều Task
 
-Một Project có nhiều Task
+- Một Project có nhiều Task
 
-Mỗi Task thuộc về một User và một Project
+- Mỗi Task thuộc về một User và một Project
 
 ---
 
@@ -248,35 +248,35 @@ Hoặc chạy trực tiếp bằng IDE (IntelliJ / Eclipse).
 
 ## 🧪 Test API
 
-Sử dụng Postman để test API
+- Sử dụng Postman để test API
 
-Test các trường hợp:
+- Test các trường hợp:
 
-Thành công
++ Thành công
 
-Dữ liệu không hợp lệ
++ Dữ liệu không hợp lệ
 
-Không tìm thấy tài nguyên
++ Không tìm thấy tài nguyên
 
-Trùng dữ liệu
++ Trùng dữ liệu
 
 ---
 
 ## 📅 Kế hoạch phát triển
 
-Xây dựng cấu trúc project Spring Boot
+- Xây dựng cấu trúc project Spring Boot
 
-Hoàn thành User Module
+- Hoàn thành User Module
 
-Hoàn thành Project Module
+- Hoàn thành Project Module
 
-Hoàn thành Task Module
+- Hoàn thành Task Module
 
-Thêm Authentication & Authorization
+- Thêm Authentication & Authorization
 
-Viết Unit Test
+- Viết Unit Test
 
-Hoàn thiện tài liệu API
+- Hoàn thiện tài liệu API
 
 ---
 
