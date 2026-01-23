@@ -13,15 +13,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequest {
-    @NotBlank(message = "Username không được để trống")
-    @Size(min = 3, max = 30, message = "Username phải từ 3-30 ký tự")
+    @NotBlank(message = "Username must not be blank")
+    @Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters")
     private String username;
 
-    @NotBlank(message = "Họ tên không được để trống")
-    @Size(min = 3, max = 30, message = "Họ tên phải từ 3-30 ký tự")
+    @NotBlank(message = "Full name must not be blank")
+    @Size(min = 3, max = 30, message = "Full name must be between 3 and 30 characters")
     private String fullName;
 
-    @NotBlank(message = "Email không được để trống")
-    @Email(message = "Email không đúng định dạng")
+    @NotBlank(message = "Email must not be blank")
+    @Email(message = "Email must be a valid email address")
     private String email;
 }
+

@@ -15,4 +15,8 @@ public interface TaskService {
     TaskResponse update(TaskRequest taskRequest, long id);
 
     void delete(long id);
+
+    List<TaskResponse> findByUserId(long userId);
+
+    List<TaskResponse> findByProjectId(long projectId);
 }

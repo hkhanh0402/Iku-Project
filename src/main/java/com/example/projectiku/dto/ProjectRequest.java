@@ -15,15 +15,16 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectRequest {
-    @NotBlank(message = "Tên project không được để trống")
-    @Size(min = 3, max = 100, message = "Tên project phải từ 3-100 ký tự")
+    @NotBlank(message = "Project name must not be blank")
+    @Size(min = 3, max = 100, message = "Project name must be between 3 and 100 characters")
     private String name;
 
-    @Size(max = 255, message = "Mô tả project không quá 255 ký tự")
+    @Size(max = 255, message = "Project description must not exceed 255 characters")
     private String description;
 
-    @NotNull(message = "Ngày bắt đầu không được null")
+    @NotNull(message = "Start date must not be null")
     private LocalDate startDate;
 
     private LocalDate endDate;
 }
+

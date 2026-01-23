@@ -1,5 +1,6 @@
 package com.example.projectiku.exception;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -78,6 +79,19 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
                 request.getDescription(false)
         );
         return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(CustomBadRequestException.class)
+    public ResponseEntity<CustomErrorDetails> handleBadRequestException(
+            CustomBadRequestException ex,
+            WebRequest request){
+
+        CustomErrorDetails errorDetails = new CustomErrorDetails(
+                LocalDateTime.now(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 }
 

@@ -34,11 +34,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse add(UserRequest userRequest) {
         if (userRepo.existsByUsername(userRequest.getUsername())) {
-            throw new CustomDuplicateResourceException("Username đã tồn tại");
+            throw new CustomDuplicateResourceException("Username already exists");
         }
 
         if (userRepo.existsByEmail(userRequest.getEmail())) {
-            throw new CustomDuplicateResourceException("Email đã tồn tại");
+            throw new CustomDuplicateResourceException("Email already exists");
         }
 
         User user = modelMapper.map(userRequest, User.class);
@@ -52,12 +52,12 @@ public class UserServiceImpl implements UserService {
         return userRepo.findById(id).map(e -> {
             if (userRequest.getUsername() != null &&
             userRepo.existsByUsernameAndIdNot(userRequest.getUsername(), id)) {
-                throw new CustomDuplicateResourceException("Username đã tồn tại");
+                throw new CustomDuplicateResourceException("Username already exists");
             }
 
             if (userRequest.getEmail() != null &&
             userRepo.existsByEmailAndIdNot(userRequest.getEmail(), id)) {
-                throw new CustomDuplicateResourceException("Email đã tồn tại");
+                throw new CustomDuplicateResourceException("Email already exists");
             }
 
             if (userRequest.getUsername() != null) e.setUsername(userRequest.getUsername());

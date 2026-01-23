@@ -42,4 +42,14 @@ public class TaskController {
         taskService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<TaskResponse>> findByUserId(@PathVariable Long userId){
+        return ResponseEntity.status(HttpStatus.OK).body(taskService.findByUserId(userId));
+    }
+
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<TaskResponse>> findByProjectId(@PathVariable Long projectId){
+        return ResponseEntity.status(HttpStatus.OK).body(taskService.findByProjectId(projectId));
+    }
 }

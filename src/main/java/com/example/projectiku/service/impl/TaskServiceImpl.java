@@ -5,6 +5,7 @@ import com.example.projectiku.dto.TaskResponse;
 import com.example.projectiku.entity.Project;
 import com.example.projectiku.entity.Task;
 import com.example.projectiku.entity.User;
+import com.example.projectiku.exception.CustomBadRequestException;
 import com.example.projectiku.exception.CustomResourceNotFoundException;
 import com.example.projectiku.repository.ProjectRepo;
 import com.example.projectiku.repository.TaskRepo;
@@ -38,20 +39,24 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponse add(TaskRequest taskRequest) {
+        if (taskRequest.getUserId() == null){
+            throw new CustomBadRequestException("userId is required");
+        }
+
+        if (taskRequest.getProjectId() == null){
+            throw new CustomBadRequestException("projectId is required");
+        }
+
         Task task = modelMapper.map(taskRequest, Task.class);
 
-        if (taskRequest.getUserId() != null){
-            User user = userRepo.findById(taskRequest.getUserId())
-                    .orElseThrow(() -> new CustomResourceNotFoundException("User not found with id " + taskRequest.getUserId()));
-            task.setUser(user);
-        }
+        User user = userRepo.findById(taskRequest.getUserId())
+                .orElseThrow(() -> new CustomResourceNotFoundException("User not found with id " + taskRequest.getUserId()));
 
-        if (taskRequest.getProjectId() != null){
-            Project project = projectRepo.findById(taskRequest.getProjectId())
-                    .orElseThrow(() -> new CustomResourceNotFoundException("Project not found with id " + taskRequest.getProjectId()));
+        Project project = projectRepo.findById(taskRequest.getProjectId())
+                .orElseThrow(() -> new CustomResourceNotFoundException("Project not found with id " + taskRequest.getProjectId()));
 
-            task.setProject(project);
-        }
+        task.setUser(user);
+        task.setProject(project);
 
         Task savedTask = taskRepo.save(task);
         return modelMapper.map(savedTask, TaskResponse.class);
@@ -83,5 +88,19 @@ public class TaskServiceImpl implements TaskService {
     public void delete(long id) {
         taskRepo.findById(id).orElseThrow(() -> new CustomResourceNotFoundException("Task not found with id " + id));
         taskRepo.deleteById(id);
+    }
+
+    @Override
+    public List<TaskResponse> findByUserId(long userId) {
+        userRepo.findById(userId).orElseThrow(() -> new CustomResourceNotFoundException("User not found with id " + userId));
+
+        return taskRepo.findByUserId(userId).stream().map(e -> modelMapper.map(e, TaskResponse.class)).toList();
+    }
+
+    @Override
+    public List<TaskResponse> findByProjectId(long projectId) {
+        userRepo.findById(projectId).orElseThrow(() -> new CustomResourceNotFoundException("User not found with id " + projectId));
+
+        return taskRepo.findByProjectId(projectId).stream().map(e -> modelMapper.map(e, TaskResponse.class)).toList();
     }
 }
