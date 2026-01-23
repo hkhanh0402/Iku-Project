@@ -135,6 +135,19 @@ src/main/java/com/example/projectiku
 
 ## 📮 API mẫu
 
+### Task API
+
+### Task API
+
+| Method | Endpoint                        | Mô tả                 |
+|-------|----------------------------------|------                 |
+| GET   | `/api/tasks`                     | Lấy tất cả task       |
+| GET   | `/api/tasks/user/{userId}`       | Lấy task theo user    |
+| GET   | `/api/tasks/project/{projectId}` | Lấy task theo project |
+| POST  | `/api/tasks`                     | Tạo task              |
+| PUT   | `/api/tasks/{id}`                | Cập nhật task         |
+| DELETE| `/api/tasks/{id}`                | Xóa task              |
+
 ### User API
 
 | Method | Endpoint          | Mô tả              |
@@ -264,19 +277,21 @@ Hoặc chạy trực tiếp bằng IDE (IntelliJ / Eclipse).
 
 ## 📅 Kế hoạch phát triển
 
-- Xây dựng cấu trúc project Spring Boot
+- Xây dựng cấu trúc project Spring Boot ✅
 
-- Hoàn thành User Module
+- Hoàn thành User Module (CRUD, validation, exception) ✅
 
-- Hoàn thành Project Module
+- Hoàn thành Task Module cơ bản  
+  - Mapping User – Project – Task ✅  
+  - API list task theo user / project ✅
 
-- Hoàn thành Task Module
-
-- Thêm Authentication & Authorization
-
-- Viết Unit Test
-
-- Hoàn thiện tài liệu API
+- Project Module (đang phát triển) 🔄
+  
+- Thêm Authentication & Authorization (JWT, Spring Security) ⏳
+  
+- Viết Unit Test ⏳
+  
+- Hoàn thiện tài liệu API (Swagger / OpenAPI) ⏳
 
 ---
 
