@@ -7,6 +7,47 @@ Dự án tập trung vào việc quản lý **User – Project – Task**, áp d
 
 ---
 
+## 📋 Mô tả nghiệp vụ (Business Description)
+
+Hệ thống **Iku Project** là hệ thống quản lý công việc nội bộ,
+được xây dựng nhằm hỗ trợ việc quản lý **người dùng (User)**,
+**dự án (Project)** và **công việc (Task)**.
+
+### 👤 User
+
+User là người sử dụng hệ thống, có thể tham gia nhiều Project
+và được gán nhiều Task khác nhau.
+
+### 📌 Project
+
+Project đại diện cho một dự án cụ thể.
+Mỗi Project bao gồm nhiều Task và có trạng thái riêng
+(PLANNING, IN_PROGRESS, DONE).
+
+### 📝 Task
+
+Task là đơn vị công việc nhỏ nhất trong hệ thống.
+
+Mỗi Task:
+
+- Thuộc về **một Project**
+- Được gán cho **một User**
+- Có trạng thái xử lý (TODO, IN_PROGRESS, DONE)
+
+### 🔗 Quan hệ nghiệp vụ
+
+- Một User có thể được gán nhiều Task
+- Một Project có thể chứa nhiều Task
+- Mỗi Task chỉ thuộc về một User và một Project tại một thời điểm
+
+Hệ thống hỗ trợ các chức năng:
+- Quản lý User
+- Quản lý Project
+- Quản lý Task
+- Theo dõi trạng thái công việc
+
+---
+
 ## 🎯 Mục tiêu
 
 - Làm quen với cấu trúc project Spring Boot chuẩn
@@ -49,18 +90,20 @@ Dự án tập trung vào việc quản lý **User – Project – Task**, áp d
 
 ## 📂 Cấu trúc project
 
+```
 src/main/java/com/example/projectiku
 │
-├── controller # Xử lý request/response API
-├── service # Interface service
-│ └── impl # Business logic
-├── repository # JPA Repository
-├── dto # Request / Response DTO
-├── entity # Entity mapping database
-├── enums # Enum trạng thái
-├── exception # Custom Exception & Global Handler
-├── config # Cấu hình (ModelMapper, etc.)
+├── controller        # Xử lý request/response API
+├── service           # Interface service
+│   └── impl          # Business logic
+├── repository        # JPA Repository
+├── dto               # Request / Response DTO
+├── entity            # Entity mapping database
+├── enums             # Enum trạng thái
+├── exception         # Custom Exception & Global Handler
+├── config            # Cấu hình (ModelMapper, etc.)
 └── ProjectIkuApplication.java
+```
 
 ---
 
@@ -91,6 +134,19 @@ src/main/java/com/example/projectiku
 ---
 
 ## 📮 API mẫu
+
+### Task API
+
+### Task API
+
+| Method | Endpoint                        | Mô tả                 |
+|-------|----------------------------------|------                 |
+| GET   | `/api/tasks`                     | Lấy tất cả task       |
+| GET   | `/api/tasks/user/{userId}`       | Lấy task theo user    |
+| GET   | `/api/tasks/project/{projectId}` | Lấy task theo project |
+| POST  | `/api/tasks`                     | Tạo task              |
+| PUT   | `/api/tasks/{id}`                | Cập nhật task         |
+| DELETE| `/api/tasks/{id}`                | Xóa task              |
 
 ### User API
 
@@ -154,25 +210,21 @@ spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
 ```
 
----
-
 ### ⚠️ Lưu ý
 
 - username và password chỉ mang tính minh họa
 - Cần cài đặt SQL Server và đảm bảo service đang chạy
 - Database project_iku phải được tạo trước
 
----
+### 🧠 Hibernate Configuration
 
-🧠 Hibernate Configuration
-
-ddl-auto=update
+- ddl-auto=update
 → Tự động tạo & cập nhật bảng theo Entity, không làm mất dữ liệu
 
-show-sql=true
+- show-sql=true
 → Hiển thị SQL trên console để debug
 
-🗂 Entity Mapping
+### 🗂 Entity Mapping
 
 | Entity  | Mô tả               |
 | ------- | ------------------- |
@@ -180,13 +232,13 @@ show-sql=true
 | Project | Dự án               |
 | Task    | Công việc           |
 
-Quan hệ
+### Quan hệ
 
-Một User có nhiều Task
+- Một User có nhiều Task
 
-Một Project có nhiều Task
+- Một Project có nhiều Task
 
-Mỗi Task thuộc về một User và một Project
+- Mỗi Task thuộc về một User và một Project
 
 ---
 
@@ -209,33 +261,39 @@ Hoặc chạy trực tiếp bằng IDE (IntelliJ / Eclipse).
 
 ## 🧪 Test API
 
-Sử dụng Postman để test API
+- Sử dụng Postman để test API
 
-Test các trường hợp:
+- Test các trường hợp:
 
-Thành công
++ Thành công
 
-Dữ liệu không hợp lệ
++ Dữ liệu không hợp lệ
 
-Không tìm thấy tài nguyên
++ Không tìm thấy tài nguyên
 
-Trùng dữ liệu
++ Trùng dữ liệu
+
+---
 
 ## 📅 Kế hoạch phát triển
 
-Xây dựng cấu trúc project Spring Boot
+- Xây dựng cấu trúc project Spring Boot ✅
 
-Hoàn thành User Module
+- Hoàn thành User Module (CRUD, validation, exception) ✅
 
-Hoàn thành Project Module
+- Hoàn thành Task Module cơ bản  
+  - Mapping User – Project – Task ✅  
+  - API list task theo user / project ✅
 
-Hoàn thành Task Module
+- Project Module (đang phát triển) 🔄
+  
+- Thêm Authentication & Authorization (JWT, Spring Security) ⏳
+  
+- Viết Unit Test ⏳
+  
+- Hoàn thiện tài liệu API (Swagger / OpenAPI) ⏳
 
-Thêm Authentication & Authorization
-
-Viết Unit Test
-
-Hoàn thiện tài liệu API
+---
 
 ## 👨‍💻 Thông tin sinh viên
 
