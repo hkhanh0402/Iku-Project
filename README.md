@@ -111,25 +111,30 @@ src/main/java/com/example/projectiku
 
 ### 👤 User Module
 
-- Lấy danh sách user
-- Lấy user theo ID
-- Thêm mới user
-- Cập nhật user
-- Xóa user
-- Validate dữ liệu đầu vào
-- Kiểm tra **trùng username & email**
-- Custom Exception & Global Exception Handler
+- CRUD User
+- Validate dữ liệu
+- Kiểm tra trùng username, email
+- DTO + ModelMapper
+- Custom Exception + Global Handler
 
-### 📌 Project Module _(đang phát triển)_
+### 📌 Project Module _
 
 - CRUD Project
-- Quản lý trạng thái Project
+- Quản lý trạng thái (PLANNING, IN_PROGRESS, DONE)
+- Quan hệ 1-N với Task
 
-### 📝 Task Module _(đang phát triển)_
+### 📝 Task Module 
 
 - CRUD Task
 - Gán Task cho User
 - Gán Task cho Project
+- Lấy Task theo User
+- Lấy Task theo Project
+- Quản lý trạng thái (TODO, IN_PROGRESS, DONE)
+- Validate dữ liệu đầu vào
+- Kiểm tra tồn tại User & Project trước khi tạo Task
+- Mapping quan hệ @ManyToOne
+- Xử lý Exception khi không tìm thấy User / Project
 
 ---
 
@@ -234,11 +239,15 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
 
 ### Quan hệ
 
-- Một User có nhiều Task
+- Một User – N Task
 
-- Một Project có nhiều Task
+- Một Project – N Task
 
-- Mỗi Task thuộc về một User và một Project
+- Task chứa:
+
++ user_id (FK)
+
++ project_id (FK)
 
 ---
 
@@ -279,19 +288,19 @@ Hoặc chạy trực tiếp bằng IDE (IntelliJ / Eclipse).
 
 - Xây dựng cấu trúc project Spring Boot ✅
 
-- Hoàn thành User Module (CRUD, validation, exception) ✅
+- Hoàn thành User Module ✅
 
-- Hoàn thành Task Module cơ bản  
-  - Mapping User – Project – Task ✅  
-  - API list task theo user / project ✅
+- Hoàn thành Task Module cơ bản ✅
 
-- Project Module (đang phát triển) 🔄
-  
+- Hoàn thành CRUD Project cơ bản ✅
+
 - Thêm Authentication & Authorization (JWT, Spring Security) ⏳
-  
+
 - Viết Unit Test ⏳
-  
-- Hoàn thiện tài liệu API (Swagger / OpenAPI) ⏳
+
+- Thêm Pagination & Sorting ⏳
+
+- Hoàn thiện Swagger / OpenAPI ⏳
 
 ---
 
