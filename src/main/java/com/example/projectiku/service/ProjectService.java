@@ -15,4 +15,6 @@ public interface ProjectService {
     ProjectResponse update(ProjectRequest projectRequest, long id);
 
     void delete(long id);
+
+    void addUserToProject(long projectId, long userId);
 }

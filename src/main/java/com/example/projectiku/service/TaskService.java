@@ -19,4 +19,8 @@ public interface TaskService {
     List<TaskResponse> findByUserId(long userId);
 
     List<TaskResponse> findByProjectId(long projectId);
+
+    TaskResponse assignTask(long taskId, long userId);
+
+    List<TaskResponse> getMyTasks();
 }

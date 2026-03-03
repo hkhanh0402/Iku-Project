@@ -1,5 +1,6 @@
 package com.example.projectiku.service;
 
+import com.example.projectiku.dto.RegisterRequest;
 import com.example.projectiku.dto.UserRequest;
 import com.example.projectiku.dto.UserResponse;
 
@@ -15,4 +16,8 @@ public interface UserService {
     UserResponse update(UserRequest userRequest, long id);
 
     void delete(long id);
+
+    void updateRole(Long id, List<String> roles);
+
+    UserResponse register(RegisterRequest request);
 }

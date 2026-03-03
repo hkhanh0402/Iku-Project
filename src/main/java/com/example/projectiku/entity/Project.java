@@ -35,4 +35,12 @@ public class Project {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Task> tasks = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "project_users",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users = new ArrayList<>();
 }

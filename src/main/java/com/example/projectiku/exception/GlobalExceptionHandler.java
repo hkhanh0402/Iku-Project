@@ -17,28 +17,24 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    // ================= NOT FOUND =================
     @ExceptionHandler(CustomResourceNotFoundException.class)
     public ResponseEntity<ApiResponse<Object>> handleNotFound(CustomResourceNotFoundException ex) {
 
         return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 
-    // ================= DUPLICATE =================
     @ExceptionHandler(CustomDuplicateResourceException.class)
     public ResponseEntity<ApiResponse<Object>> handleDuplicate(CustomDuplicateResourceException ex) {
 
         return buildResponse(HttpStatus.CONFLICT, ex.getMessage(), null);
     }
 
-    // ================= BAD REQUEST =================
     @ExceptionHandler(CustomBadRequestException.class)
     public ResponseEntity<ApiResponse<Object>> handleBadRequest(CustomBadRequestException ex) {
 
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
     }
 
-    // ================= VALIDATION =================
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
@@ -61,7 +57,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    // ================= JSON FORMAT ERROR =================
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException ex,
@@ -79,7 +74,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    // ================= GLOBAL =================
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Object>> handleAll(Exception ex) {
 
@@ -90,7 +84,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    // ================= COMMON BUILDER =================
     private ResponseEntity<ApiResponse<Object>> buildResponse(
             HttpStatus status,
             String message,
@@ -104,5 +97,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                         .build(),
                 status
         );
+    }
+
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    public ResponseEntity<ApiResponse<?>> handleAccessDenied(
+            org.springframework.security.access.AccessDeniedException ex) {
+
+        return ResponseEntity.status(403)
+                .body(new ApiResponse<>(403, "Access Denied", null));
     }
 }

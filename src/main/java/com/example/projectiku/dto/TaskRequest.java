@@ -30,8 +30,10 @@ public class TaskRequest {
     @FutureOrPresent(message = "Due date must be today or in the future")
     private LocalDate dueDate;
 
+    @NotNull(message = "User id must not be null")
     private Long userId;
 
+    @NotNull(message = "Project id must not be null")
     private Long projectId;
 }
 

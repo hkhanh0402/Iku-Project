@@ -1,5 +1,6 @@
 package com.example.projectiku.controller;
 
+import com.example.projectiku.dto.ApiResponse;
 import com.example.projectiku.dto.TaskRequest;
 import com.example.projectiku.dto.TaskResponse;
 import com.example.projectiku.service.TaskService;
@@ -7,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,41 +17,107 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
 public class TaskController {
+
     private final TaskService taskService;
 
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping
-    public ResponseEntity<List<TaskResponse>> findAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(taskService.findAll());
+    public ResponseEntity<ApiResponse<List<TaskResponse>>> findAll() {
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Get all tasks successfully",
+                        taskService.findAll())
+        );
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("{id}")
-    public ResponseEntity<TaskResponse> findById(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(taskService.findById(id));
+    public ResponseEntity<ApiResponse<TaskResponse>> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Get task successfully",
+                        taskService.findById(id))
+        );
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @PostMapping
-    public ResponseEntity<TaskResponse> add(@Valid @RequestBody TaskRequest taskRequest){
-        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.add(taskRequest));
+    public ResponseEntity<ApiResponse<TaskResponse>> add(
+            @Valid @RequestBody TaskRequest taskRequest) {
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>(201, "Task created successfully",
+                        taskService.add(taskRequest)));
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @PutMapping("{id}")
-    public ResponseEntity<TaskResponse> update(@Valid @RequestBody TaskRequest taskRequest, @PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(taskService.update(taskRequest, id));
+    public ResponseEntity<ApiResponse<TaskResponse>> update(
+            @Valid @RequestBody TaskRequest taskRequest,
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Task updated successfully",
+                        taskService.update(taskRequest, id))
+        );
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @DeleteMapping("{id}")
-    public ResponseEntity<TaskResponse> delete(@PathVariable Long id){
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+
         taskService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Task deleted successfully", null)
+        );
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<TaskResponse>> findByUserId(@PathVariable Long userId){
-        return ResponseEntity.status(HttpStatus.OK).body(taskService.findByUserId(userId));
+    public ResponseEntity<ApiResponse<List<TaskResponse>>> findByUserId(
+            @PathVariable Long userId) {
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(
+                        200,
+                        "Get tasks by user successfully",
+                        taskService.findByUserId(userId)
+                )
+        );
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/project/{projectId}")
-    public ResponseEntity<List<TaskResponse>> findByProjectId(@PathVariable Long projectId){
-        return ResponseEntity.status(HttpStatus.OK).body(taskService.findByProjectId(projectId));
+    public ResponseEntity<ApiResponse<List<TaskResponse>>> findByProjectId(
+            @PathVariable Long projectId) {
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Get tasks by project successfully",
+                        taskService.findByProjectId(projectId))
+        );
+    }
+
+    @PreAuthorize("hasRole('MANAGER')")
+    @PutMapping("/{taskId}/assign/{userId}")
+    public ResponseEntity<ApiResponse<TaskResponse>> assign(
+            @PathVariable Long taskId,
+            @PathVariable Long userId) {
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Task assigned successfully",
+                        taskService.assignTask(taskId, userId))
+        );
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<List<TaskResponse>>> getMyTasks() {
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(
+                        200,
+                        "Get my tasks successfully",
+                        taskService.getMyTasks()
+                )
+        );
     }
 }
