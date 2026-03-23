@@ -4,6 +4,9 @@ import com.example.projectiku.dto.ApiResponse;
 import com.example.projectiku.dto.UserRequest;
 import com.example.projectiku.dto.UserResponse;
 import com.example.projectiku.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,10 +19,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@Tag(name = "4. User Management", description = "API Quản lý Người dùng")
+@SecurityRequirement(name = "bearerAuth") // Yêu cầu nhập token trên Swagger
 public class UserController {
 
     private final UserService userService;
 
+    @Operation(summary = "Lấy danh sách người dùng", description = "Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @GetMapping
     public ResponseEntity<ApiResponse<List<UserResponse>>> findAll() {
@@ -29,6 +35,7 @@ public class UserController {
         );
     }
 
+    @Operation(summary = "Xem chi tiết người dùng", description = "Yêu cầu quyền MANAGER hoặc là chính User đó")
     @PreAuthorize("hasAnyRole('USER', 'MANAGER')")
     @GetMapping("{id}")
     public ResponseEntity<ApiResponse<UserResponse>> findById(@PathVariable Long id) {
@@ -38,6 +45,7 @@ public class UserController {
         );
     }
 
+    @Operation(summary = "Thêm người dùng mới", description = "Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @PostMapping
     public ResponseEntity<ApiResponse<UserResponse>> add(
@@ -49,6 +57,7 @@ public class UserController {
                         userService.add(userRequest)));
     }
 
+    @Operation(summary = "Cập nhật thông tin người dùng", description = "Yêu cầu quyền MANAGER hoặc là chính User đó")
     @PreAuthorize("hasAnyRole('USER','MANAGER')")
     @PutMapping("{id}")
     public ResponseEntity<ApiResponse<UserResponse>> update(
@@ -61,6 +70,7 @@ public class UserController {
         );
     }
 
+    @Operation(summary = "Xóa người dùng", description = "Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @DeleteMapping("{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
@@ -72,6 +82,7 @@ public class UserController {
         );
     }
 
+    @Operation(summary = "Cập nhật quyền (Role)", description = "Cấp quyền cho user. Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @PutMapping("/{id}/roles")
     public ResponseEntity<ApiResponse<String>> updateRole(

@@ -7,6 +7,8 @@ import com.example.projectiku.repository.UserRepo;
 import com.example.projectiku.security.CustomUserDetailsService;
 import com.example.projectiku.security.JwtUtil;
 import com.example.projectiku.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Tag(name = "1. Authentication", description = "API Đăng ký và Đăng nhập (Không yêu cầu Token)")
 public class AuthController {
 
     private final UserRepo userRepo;
@@ -25,6 +28,7 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService userDetailsService;
 
+    @Operation(summary = "Đăng ký tài khoản", description = "Tạo một tài khoản người dùng mới vào hệ thống")
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<UserResponse>> register(
             @Valid @RequestBody RegisterRequest request) {
@@ -36,6 +40,7 @@ public class AuthController {
         );
     }
 
+    @Operation(summary = "Đăng nhập", description = "Xác thực người dùng và trả về chuỗi JWT token")
     @PostMapping("/login")
     public ApiResponse<String> login(@RequestBody LoginRequest request) {
 

@@ -4,6 +4,9 @@ import com.example.projectiku.dto.ApiResponse;
 import com.example.projectiku.dto.TaskRequest;
 import com.example.projectiku.dto.TaskResponse;
 import com.example.projectiku.service.TaskService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,10 +19,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
+@Tag(name = "3. Task Management", description = "API Quản lý Công việc")
+@SecurityRequirement(name = "bearerAuth") // Yêu cầu nhập token trên Swagger
 public class TaskController {
 
     private final TaskService taskService;
 
+    @Operation(summary = "Lấy danh sách công việc", description = "Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @GetMapping
     public ResponseEntity<ApiResponse<List<TaskResponse>>> findAll() {
@@ -29,6 +35,7 @@ public class TaskController {
         );
     }
 
+    @Operation(summary = "Xem chi tiết công việc", description = "Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("{id}")
     public ResponseEntity<ApiResponse<TaskResponse>> findById(@PathVariable Long id) {
@@ -38,6 +45,7 @@ public class TaskController {
         );
     }
 
+    @Operation(summary = "Tạo mới công việc", description = "Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @PostMapping
     public ResponseEntity<ApiResponse<TaskResponse>> add(
@@ -48,6 +56,7 @@ public class TaskController {
                         taskService.add(taskRequest)));
     }
 
+    @Operation(summary = "Cập nhật công việc", description = "Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @PutMapping("{id}")
     public ResponseEntity<ApiResponse<TaskResponse>> update(
@@ -60,6 +69,7 @@ public class TaskController {
         );
     }
 
+    @Operation(summary = "Xóa công việc", description = "Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @DeleteMapping("{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
@@ -71,6 +81,7 @@ public class TaskController {
         );
     }
 
+    @Operation(summary = "Tìm công việc theo User", description = "Lấy danh sách công việc của một user cụ thể. Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/user/{userId}")
     public ResponseEntity<ApiResponse<List<TaskResponse>>> findByUserId(
@@ -85,6 +96,7 @@ public class TaskController {
         );
     }
 
+    @Operation(summary = "Tìm công việc theo Project", description = "Lấy danh sách công việc thuộc một dự án. Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/project/{projectId}")
     public ResponseEntity<ApiResponse<List<TaskResponse>>> findByProjectId(
@@ -96,6 +108,7 @@ public class TaskController {
         );
     }
 
+    @Operation(summary = "Giao việc cho User", description = "Yêu cầu quyền MANAGER")
     @PreAuthorize("hasRole('MANAGER')")
     @PutMapping("/{taskId}/assign/{userId}")
     public ResponseEntity<ApiResponse<TaskResponse>> assign(
@@ -108,6 +121,7 @@ public class TaskController {
         );
     }
 
+    @Operation(summary = "Xem công việc của tôi", description = "Lấy danh sách task được giao cho user đang đăng nhập. Yêu cầu quyền USER")
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<List<TaskResponse>>> getMyTasks() {
