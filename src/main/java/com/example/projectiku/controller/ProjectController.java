@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/api/projects")
 @RequiredArgsConstructor
 @Tag(name = "2. Project Management", description = "API Quản lý Dự án")
-@SecurityRequirement(name = "bearerAuth") // Yêu cầu nhập token trên Swagger
+@SecurityRequirement(name = "bearerAuth")
 public class ProjectController {
 
     private final ProjectService projectService;

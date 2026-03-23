@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@Tag(name = "1. Authentication", description = "API Đăng ký và Đăng nhập (Không yêu cầu Token)")
+@Tag(name = "1. Authentication", description = "API Đăng ký và Đăng nhập")
 public class AuthController {
 
     private final UserRepo userRepo;

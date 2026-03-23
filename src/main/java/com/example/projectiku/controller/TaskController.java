@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
 @Tag(name = "3. Task Management", description = "API Quản lý Công việc")
-@SecurityRequirement(name = "bearerAuth") // Yêu cầu nhập token trên Swagger
+@SecurityRequirement(name = "bearerAuth")
 public class TaskController {
 
     private final TaskService taskService;

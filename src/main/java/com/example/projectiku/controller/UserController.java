@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 @Tag(name = "4. User Management", description = "API Quản lý Người dùng")
-@SecurityRequirement(name = "bearerAuth") // Yêu cầu nhập token trên Swagger
+@SecurityRequirement(name = "bearerAuth")
 public class UserController {
 
     private final UserService userService;

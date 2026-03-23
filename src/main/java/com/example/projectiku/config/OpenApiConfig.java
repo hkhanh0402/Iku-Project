@@ -19,7 +19,6 @@ public class OpenApiConfig {
                         .title("Project IKU API Document")
                         .version("1.0")
                         .description("Tài liệu tích hợp Swagger cho dự án IKU"))
-                // Cấu hình nút Authorize nhập Token
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(new Components()
                         .addSecuritySchemes(securitySchemeName, new SecurityScheme()
