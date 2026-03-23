@@ -53,8 +53,9 @@ Hệ thống hỗ trợ các chức năng:
 - Làm quen với cấu trúc project Spring Boot chuẩn
 - Xây dựng REST API theo mô hình Controller – Service – Repository
 - Áp dụng DTO, Validation, Exception Handling
-- Thực hành sử dụng Git & GitHub để quản lý source code
-- Chuẩn bị nền tảng cho các module nâng cao trong các tuần tiếp theo
+- Thực hành Unit Test với JUnit & Mockito
+- Triển khai tài liệu API với Swagger UI
+- Đóng gói ứng dụng và phân tách môi trường (Dev/Prod)
 
 ---
 
@@ -76,17 +77,13 @@ Hệ thống hỗ trợ các chức năng:
 ## 🛠 Công nghệ sử dụng
 
 - **Java 17**
-- **Spring Boot**
-- **Spring Web**
-- **Spring Data JPA**
-- **Hibernate**
-- **ModelMapper**
-- **Maven**
+- **Spring Boot 3.x**
+- **Spring Data JPA & Hibernate**
+- **Spring Security & JWT (JSON Web Token)**
+- **Springdoc OpenAPI (Swagger UI)**
+- **JUnit 5 & Mockito** (Unit Testing)
 - **Database**: SQL Server
-- **Postman** (test API)
-- **Git & GitHub**
-- Spring Security
-- JWT (JSON Web Token)
+- **Công cụ**: Maven, Postman, Git & GitHub
 
 ---
 
@@ -95,16 +92,15 @@ Hệ thống hỗ trợ các chức năng:
 ```
 src/main/java/com/example/projectiku
 │
-├── controller        # Xử lý request/response API
-├── service           # Interface service
-│   └── impl          # Business logic
-├── repository        # JPA Repository
-├── dto               # Request / Response DTO
-├── entity            # Entity mapping database
-├── enums             # Enum trạng thái
-├── exception         # Custom Exception & Global Handler
-├── config            # Cấu hình (ModelMapper, etc.)
-└── ProjectIkuApplication.java
+├── config        # Cấu hình Security, Swagger, ModelMapper, v.v.
+├── controller    # Xử lý request/response API
+├── dto           # Request / Response DTO
+├── entity        # Entity mapping database
+├── enums         # Enum trạng thái
+├── exception     # Custom Exception & Global Handler
+├── repository    # JPA Repository
+├── security      # Filter và xử lý JWT
+└── service       # Interface service & Business logic (impl)
 ```
 
 ---
@@ -201,31 +197,19 @@ src/main/java/com/example/projectiku
 
 ---
 
-## 🗄 Database Configuration (SQL Server)
+## ⚙️ Cấu hình Hệ thống (Profile & Database)
 
-### 📌 Database
+Dự án hỗ trợ 2 môi trường thông qua Profile:
+- **DEV (`application-dev.properties`)**: Chạy ở Local, hiển thị log SQL chi tiết.
+- **PROD (`application-prod.properties`)**: Chạy ở Server, ẩn log SQL để bảo mật và tối ưu hiệu năng.
 
-- **DBMS**: Microsoft SQL Server
-- **ORM**: Spring Data JPA (Hibernate)
+### 🗄 Database (SQL Server)
 - **Database Name**: `project_iku`
 - **Port**: `1433`
 
----
-
-## ⚙️ Application Configuration
-
-Cấu hình trong file:  
-`src/main/resources/application.properties`
-
-```properties
-spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=project_iku;trustServerCertificate=true
-spring.datasource.username=sa
-spring.datasource.password=123
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
+Đảm bảo bạn đã tạo Database trước khi chạy ứng dụng:
+```sql
+CREATE DATABASE project_iku;
 ```
 
 ### ⚠️ Lưu ý
@@ -264,56 +248,45 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
 
 ---
 
-## ▶️ Cách chạy project
+## ▶️ Hướng dẫn Setup & Chạy Project
 
-### 1️⃣ Clone project
+### Cách 1: Chạy trực tiếp qua IDE (Dành cho Dev)
+1. Clone project: `git clone https://github.com/hkhanh0402/Iku-Project.git`
+2. Mở file `application-dev.properties` và sửa thông tin `username`/`password` SQL Server của bạn.
+3. Chạy file `ProjectIkuApplication.java` trên IntelliJ / Eclipse. Mặc định hệ thống sẽ dùng profile `dev`.
 
-Sao chép mã: git clone https://github.com/hkhanh0402/Iku-Project.git
-
-### 2️⃣ Tạo database
-
-Sao chép mã: CREATE DATABASE project_iku;
-
-### 3️⃣ Chạy ứng dụng
-
-mvn spring-boot:run
-Hoặc chạy trực tiếp bằng IDE (IntelliJ / Eclipse).
+### Cách 2: Build và chạy file JAR (Dành cho Deploy)
+1. Mở Terminal tại thư mục gốc của project, tiến hành build JAR: ``` mvn clean package -DskipTests ```
+2. Chạy file JAR với môi trường Production: ``` java -jar target/project-iku-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod ```
 
 ---
 
-## 🧪 Test API
+## 🧪 Hướng dẫn Test API qua Swagger (Auth)
 
-- Sử dụng Postman để test API
+Dự án đã tích hợp sẵn **Swagger UI** để test API trực quan thay vì dùng Postman.
 
-- Test các trường hợp:
-
-+ Thành công
-
-+ Dữ liệu không hợp lệ
-
-+ Không tìm thấy tài nguyên
-
-+ Trùng dữ liệu
+1. **Truy cập Swagger**: Mở trình duyệt và vào link `http://localhost:8080/swagger-ui/index.html`
+2. **Lấy Token (Login)**:
+   - Kéo xuống mục **1. Authentication**, mở API `POST /api/auth/login`.
+   - Bấm **Try it out**, nhập `username` và `password` (Nên dùng tài khoản có role MANAGER).
+   - Bấm **Execute**. Copy chuỗi Token trả về trong phần Response (không copy dấu ngoặc kép).
+3. **Xác thực (Authorize)**:
+   - Cuộn lên đầu trang, bấm vào nút **Authorize** (hình ổ khóa).
+   - Dán chuỗi token vừa copy vào ô Value và bấm Authorize.
+4. **Test API**: Bây giờ bạn có thể test bất kỳ API nào của Project, Task hay User trực tiếp trên web.
 
 ---
 
 ## 📅 Kế hoạch phát triển
 
 - Xây dựng cấu trúc project Spring Boot ✅
-
 - Hoàn thành User Module ✅
-
 - Hoàn thành Task Module cơ bản ✅
-
 - Hoàn thành CRUD Project cơ bản ✅
-
 - Thêm Authentication & Authorization (JWT, Spring Security) ✅
-
-- Viết Unit Test ⏳
-
-- Thêm Pagination & Sorting ⏳
-
-- Hoàn thiện Swagger / OpenAPI ⏳
+- Viết Unit Test ✅
+- Tách cấu hình Profile & Build JAR ✅
+- Hoàn thiện Swagger / OpenAPI ✅
 
 ---
 
