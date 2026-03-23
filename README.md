@@ -287,7 +287,6 @@ Dự án đã tích hợp sẵn **Swagger UI** để test API trực quan thay v
 - Viết Unit Test ✅
 - Tách cấu hình Profile & Build JAR ✅
 - Hoàn thiện Swagger / OpenAPI ✅
-- Thêm Pagination & Sorting ⏳
 
 ---
 
