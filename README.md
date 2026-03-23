@@ -85,6 +85,8 @@ Hệ thống hỗ trợ các chức năng:
 - **Database**: SQL Server
 - **Postman** (test API)
 - **Git & GitHub**
+- Spring Security
+- JWT (JSON Web Token)
 
 ---
 
@@ -136,6 +138,15 @@ src/main/java/com/example/projectiku
 - Mapping quan hệ @ManyToOne
 - Xử lý Exception khi không tìm thấy User / Project
 
+### 🔐 Authentication & Authorization
+
+- Xác thực người dùng bằng JWT
+- Phân quyền USER / MANAGER bằng Spring Security
+- Bảo vệ API theo role
+- Xử lý 401 (Unauthorized) và 403 (Forbidden)
+- Lấy thông tin user từ token
+- API `/api/tasks/me` cho USER
+
 ---
 
 ## 📮 API mẫu
@@ -176,7 +187,9 @@ src/main/java/com/example/projectiku
   - `404` – Không tìm thấy tài nguyên
   - `409` – Dữ liệu bị trùng
   - `500` – Lỗi hệ thống
-
+  - API được bảo vệ bằng JWT
+  - Truyền token qua Header: Authorization: Bearer <token>
+  
 ---
 
 ## ⚠️ Xử lý Exception
@@ -294,7 +307,7 @@ Hoặc chạy trực tiếp bằng IDE (IntelliJ / Eclipse).
 
 - Hoàn thành CRUD Project cơ bản ✅
 
-- Thêm Authentication & Authorization (JWT, Spring Security) ⏳
+- Thêm Authentication & Authorization (JWT, Spring Security) ✅
 
 - Viết Unit Test ⏳
 
