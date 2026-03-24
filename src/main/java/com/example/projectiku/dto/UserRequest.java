@@ -2,6 +2,7 @@ package com.example.projectiku.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class UserRequest {
     @Email(message = "Email must be a valid email address")
     private String email;
 
-    @NotBlank(message = "Role must not be blank")
+    @NotNull(message = "Role must not be blank")
     private List<String> roles;
 }
 
